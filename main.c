@@ -8,11 +8,13 @@ int main()
     root->esq = NULL;
     root->dir = NULL;
     root->key = 80;
+
     insertABB(78, &root);
     insertABB(9, &root);
     insertABB(87, &root);
     insertABB(2, &root);
-    insertABB(82, &root);
-    insertABB(3, &root);
+
     print(root);
+
+    calc_heigth(root);
 }

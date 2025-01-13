@@ -74,3 +74,80 @@ void print(Node *root)
     if (root->dir != NULL)
         print(root->dir);
 }
+
+void visit(Node *no)
+{
+    int ah1 = 0;
+    int ah2 = 0;
+    if (no->esq != NULL)
+    {
+        ah1 = no->esq->heigth;
+    }
+    else
+    {
+        ah1 = -1;
+    }
+
+    if (no->dir != NULL)
+    {
+        ah2 = no->dir->heigth;
+    }
+    else
+    {
+        ah2 = -1;
+    }
+
+    if (ah1 > ah2)
+    {
+        no->heigth = ah1 + 1;
+    }
+    else
+    {
+        no->heigth = ah2 + 1;
+    }
+}
+
+void calc_heigth(Node *no)
+{
+    if (no->esq != NULL)
+    {
+        calc_heigth(no->esq);
+    }
+    if (no->dir != NULL)
+    {
+        calc_heigth(no->dir);
+    }
+    visit(no);
+}
+
+void remove_node(int x, Node **root)
+{
+    Node *pt = *root;
+    int f = -1;
+    searchABB(x, &pt, &f);
+    if (f != 1)
+        puts("Element not exists");
+    else
+    {
+        if (pt->esq == NULL)
+            pt = pt->dir;
+        else if (pt->dir == NULL)
+            pt = pt->esq;
+        else
+        {
+            Node *s = pt->dir;
+            if (s->dir != NULL)
+            {
+                Node *fatherS = s;
+                while (s->dir != NULL)
+                {
+                    s = s->esq;
+                }
+                fatherS->esq = s->dir;
+                s->dir = pt->dir;
+            }
+            s->esq = pt->esq;
+            pt = s;
+        }
+    }
+}
