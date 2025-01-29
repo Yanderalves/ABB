@@ -4,8 +4,8 @@
 
 int searchABB(int x, Node **pt, int *f)
 {
-    if (pt == NULL)
-        f = 0;
+    if (*pt == NULL)
+        *f = 0;
     else
     {
         if (x == (*pt)->key)
@@ -43,7 +43,7 @@ void insertABB(int x, Node **root)
     searchABB(x, &pt, &f);
     if (f == 1)
     {
-        puts("Elemento já existe");
+        puts("Element already exists");
         return;
     }
     else
@@ -75,49 +75,31 @@ void print(Node *root)
         print(root->dir);
 }
 
-void visit(Node *no)
+int calc_heigth(Node *no)
 {
-    int ah1 = 0;
-    int ah2 = 0;
-    if (no->esq != NULL)
+    int hl = 0;
+    int hr = 0;
+    if (no->esq == NULL && no->dir == NULL)
     {
-        ah1 = no->esq->heigth;
+        return 0;
     }
     else
     {
-        ah1 = -1;
+        if (no->esq != NULL)
+        {
+            hl = calc_heigth(no->esq);
+        }
+        if (no->dir != NULL)
+        {
+            hr = calc_heigth(no->dir);
+        }
     }
-
-    if (no->dir != NULL)
-    {
-        ah2 = no->dir->heigth;
-    }
-    else
-    {
-        ah2 = -1;
-    }
-
-    if (ah1 > ah2)
-    {
-        no->heigth = ah1 + 1;
-    }
-    else
-    {
-        no->heigth = ah2 + 1;
-    }
+    return 1 + max_number(hl, hr);
 }
 
-void calc_heigth(Node *no)
+int max_number(int a, int b)
 {
-    if (no->esq != NULL)
-    {
-        calc_heigth(no->esq);
-    }
-    if (no->dir != NULL)
-    {
-        calc_heigth(no->dir);
-    }
-    visit(no);
+    return a > b ? a : b;
 }
 
 void remove_node(int x, Node **root)

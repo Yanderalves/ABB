@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include "lib.h"
-#include <stdlib.h>
 
 int main()
 {
-    Node *root = malloc(sizeof(Node));
-    root->esq = NULL;
-    root->dir = NULL;
-    root->key = 80;
+    Node *root = NULL;
 
-    insertABB(78, &root);
+    insertABB(4, &root);
+    insertABB(8, &root);
+    insertABB(7, &root);
     insertABB(9, &root);
-    insertABB(87, &root);
-    insertABB(2, &root);
+    insertABB(57, &root);
+    insertABB(25, &root);
+    insertABB(78, &root);
 
     print(root);
 
-    calc_heigth(root);
+    int heigth = calc_heigth(root);
+
+    printf("\nHeigth: %d\n", heigth);
 }
